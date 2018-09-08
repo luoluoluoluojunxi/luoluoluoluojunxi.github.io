@@ -101,7 +101,12 @@ body {
            }
 
 #fangda {border-radius: 50%;
-         background-color:#8a8c8e;}
+         background-color:#8a8c8e;
+         border: 0px solid black';}
+#quanju:hover {
+    background-color:grey;
+    color:black;
+    }
 </style>
 <script>
 function chuxian(obj){
@@ -110,14 +115,15 @@ function likai (obj){
 obj.style.height='10px'}
 function bigsee(n){
            var jiedian=document.getElementsByClassName('suoluekuang');
+           if (jiedian[n].style.width=='50%'){
            var i;
            for(i = 0; i < jiedian.length; i++){
            jiedian[i].style.display = "none";
            }
            jiedian[n].style.display='block';
            jiedian[n].style.width='100%';
-           jiedian[n].style.height='100%';
-                    
+           jiedian[n].style.height='100%';}
+            else{smallsee(n)}
                     }
 function smallsee(n){
            var jiedian=document.getElementsByClassName('suoluekuang');
@@ -139,10 +145,45 @@ function checkcheck(){
              else{smallsee(0)}
              }
              }
+function dakai(){
+          var eveve=document.getElementById('zidingyi')
+          if (eveve.style.display=='none'){
+         document.getElementById('zidingyi').style.display='block'}
+          else{document.getElementById('zidingyi').style.display='none'}
+         }
+function checkcheck1(n){
+             var evev=document.getElementsByClassName('xuankuang1');
+              document.getElementsByClassName('kuang')[n].src=evev[n].value
+             }
+function quanjus(){
+          var evev=document.getElementById('section')
+         if (document.getElementById('section').style.left=='12%'){
+         evev.style.left='0%';
+         evev.style.right='0%';
+         evev.style.top='0%';
+         evev.style.bottom='0%';
+         
+         document.getElementById('quanju').innerHTML="-";
+            }
+         else{
+         evev.style.left='12%';
+         evev.style.right='12%';
+         evev.style.top='7%';
+         evev.style.bottom='11%';
+         
+         document.getElementById('quanju').innerHTML="+";}
+         }
+function jubusx(n){
+        document.getElementsByClassName('kuang')[n].src=document.getElementsByClassName('kuang')[n].src}
+function xiala(){
+        document.getElementById('xialacaidan').style.display='block'}
+function shouqi(){
+        document.getElementById('xialacaidan').style.display='none'}
 </script>
+<body >
 <div id='xuanzemuen' style='position:absolute;top:30%;left:3%;color:white'>
-<input type=checkbox class='xuankuang' checked=True value='https://luoluoluoluojunxi.github.io/s.html'>s.html<br>
 <input type=checkbox class='xuankuang' checked=True value='https://luoluoluoluojunxi.github.io/PPT模板.html'>PPT模板<br>
+<input type=checkbox class='xuankuang' checked=True value='https://luoluoluoluojunxi.github.io/'>暂无<br>
 <input type=checkbox class='xuankuang' checked=True value='https://luoluoluoluojunxi.github.io/'>暂无<br>
 <input type=checkbox class='xuankuang' checked=True value='https://luoluoluoluojunxi.github.io/'>暂无<br>
 <input type=checkbox class='xuankuang' checked=True value='https://luoluoluoluojunxi.github.io/'>暂无<br>
@@ -150,21 +191,48 @@ function checkcheck(){
 <input type=checkbox class='xuankuang' checked=True value='https://luoluoluoluojunxi.github.io/'>暂无<br>
 <input type=button onclick='checkcheck()' value='OK' style='color:black'>
 </div>
-<button id='fangda'  onclick="bigsee(0)" ondblclick='smallsee(0)' style='position:absolute; top:8%; left:5%;color:white;' >O</button>
+<input  type=button onclick='dakai()' ondblclick='guanbi()' style='position:absolute;top:0%;left:0%;color:black '> 
+<a  style='position:absolute;top:0%;right:0%;color:grey ' href='https://github.com/luoluoluoluojunxi/luoluoluoluojunxi.github.io' target="_blank">github</a>
+<div id='zidingyi' style='position:absolute;top:0%;left:1%;color:black;display:none'>
+<input type=url class='xuankuang1'  value='输入自定义链接' style='width:8% float:left'>
+<input type=button onclick='checkcheck1(0)' value='OK' style='color:black'>
+<input type=url class='xuankuang1'  value='输入自定义链接'style='width:8% float:left'>
+<input type=button onclick='checkcheck1(1)' value='OK' style='color:black'>
+<input type=url class='xuankuang1'  value='输入自定义链接'style='width:8% float:left'>
+<input type=button onclick='checkcheck1(2)' value='OK' style='color:black'>
+<input type=url class='xuankuang1'  value='输入自定义链接'style='width:8% float:left'>
 
-<button id='fangda'  onclick="bigsee(1)" ondblclick='smallsee(1)' style='position:absolute; top:8%; left:8%;color:white;' >O</button>
-<button id='fangda'  onclick="bigsee(2)" ondblclick='smallsee(2)' style='position:absolute; top:13%; left:5%;color:white;' >O</button>
-<button id='fangda'  onclick="bigsee(3)" ondblclick='smallsee(3)' style='position:absolute; top:13%; left:8%;color:white;' >O</button>
+<input type=button onclick='checkcheck1(3)' value='OK' style='color:black'>
+</div>
+<button id='fangda'  onclick="bigsee(0)"  style='position:absolute; top:8%; left:5%;color:white;' >O</button>
+
+<button id='fangda'  onclick="bigsee(1)"  style='position:absolute; top:8%; left:8%;color:white;' >O</button>
+<button id='fangda'  onclick="bigsee(2)"  style='position:absolute; top:13%; left:5%;color:white;' >O</button>
+<button id='fangda'  onclick="bigsee(3)" style='position:absolute; top:13%; left:8%;color:white;' >O</button>
 <div id='section'>
+<button  id='quanju' onclick='quanjus()' style='position:absolute; top:0%; left:0%;color:white;border-radius: 50%;
+         background-color:black; border: 0px solid black'>+</button>
 
+<button  id='quanju' onmouseover='xiala()' onmouseout='shouqi()' style='position:absolute; top:3%; left:0% ;color:white;border-radius: 50%;
+         background-color:black; border: 0px solid black'>o</button>
+<div onmouseover='xiala()' onmouseout='shouqi()' id='xialacaidan' style='position:absolute;left:0;top:5%;display:none'  >
+<button  id='quanju' onclick='jubusx(0)' style='float:left ;color:white;border-radius: 50%;
+         background-color:black; border: 0px solid black'>o</button><br>
+<button  id='quanju' onclick='jubusx(1)' style='float:left ;color:white;border-radius: 50%;
+         background-color:black; border: 0px solid black'>o</button><br>
+<button  id='quanju' onclick='jubusx(2)' style='float:left;color:white;border-radius: 50%;
+         background-color:black; border: 0px solid black'>o</button><br>        
+<button  id='quanju' onclick='jubusx(3)' style='float:left;color:white;border-radius: 50%;
+         background-color:black; border: 0px solid black'>o</button>
+</div>
 <div class='suoluekuang'  >
 
-<iframe  class='kuang' name='kuang1' src="https://luoluoluoluojunxi.github.io/PPT模板.html"></iframe> 
+<iframe  class='kuang' name='kuang1' src="http://www.runoob.com/css3/css3-buttons.html"></iframe> 
 
 </div>
 
 <div class='suoluekuang'>
-<iframe class='kuang' src="https://luoluoluoluojunxi.github.io/"></iframe> 
+<iframe class='kuang' src="https://luoluoluoluojunxi.github.io/PPT模板.html"></iframe> 
 </div>
 <div class='suoluekuang'>
 <iframe class='kuang' src="https://luoluoluoluojunxi.github.io/"></iframe> 
