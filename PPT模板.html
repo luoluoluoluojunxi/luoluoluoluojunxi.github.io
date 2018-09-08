@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+<meta charset="utf-8"> 
+<title>PPT</title> 
+<style>
+* {
+    box-sizing: border-box;
+}
+body {
+      background-color:#007d65;
+      <!--background-image:url('https://luoluoluoluojunxi.github.io/index.jpg');*/-->
+      background-size:100%  auto;
+      background-repeat:no-repeat;
+      
+}
+
+#menu {
+      cursor: pointer;
+      background-color:grey;
+      position:absolute;
+      top:0%;
+      bottom:0%;
+      width:0%;
+      display:block;
+      transition: 0.6s ease;
+      overflow:hidden;
+      }
+.ppoint {
+      background-color:#007d65;
+      position:absolute;
+      top:0%;
+      bottom:0%;
+      width:100%;
+      display:none;
+      z-index:-1;
+     
+      }
+.title1
+      {color:white; text-align:center;font-size:9em;}
+.title2
+       {color:white; text-align:center;font-size:5em;}
+.title3
+      {color:white;text-align:center;font-size:5em;}
+.jiaozhu 
+      {text-align:center;font-size:2em;position:absolute;bottom:0%;left:47%;}
+      
+      
+.sppoint {
+      background-color:#007d65;
+      position:static;
+      height:50%;
+      width:50%;
+      display:'block';
+      float:left;
+      z-index:-1;
+      }
+.stitle1
+      {color:white; text-align:center;font-size:4.5em;}
+.stitle2
+       {color:white; text-align:center;font-size:2.5em;}
+.stitle3
+      {color:white;text-align:center;font-size:2.5em;}
+.sjiaozhu 
+      {text-align:center;font-size:1em;height=98%}
+      
+      
+      
+      
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+}
+</style>
+</head>
+<!--全局按键监听-->
+<script type="text/javascript" language="javascript">
+        document.onkeyup = function (event) {
+            var e = event || window.event;
+            var keyCode = e.keyCode || e.which;
+            switch (keyCode) {
+                case 32:
+                    var evev=document.getElementById('menu')
+                    if (evev.style.display=='none'){
+                    evev.style.display='block';
+                    break;}
+                    else{evev.style.display='none'}
+                    break;
+                case 37:
+                    fangye(-1);
+                    
+                    break;
+                case 39:
+                    fangye(1);
+                    break;
+                default:
+                    alert(e.KeyCode||e.which);
+                    break;
+            }
+        }
+
+
+
+</script>
+<!--菜单放大-->
+<script>
+function bbmenu(){
+        var evev=document.getElementById('menu')
+        if (evev.style.width=='100%'){
+        evev.style.width='0%';
+        evev.style.overflow='hidden'}
+        else if (evev.style.width=='0%'){
+        evev.style.width='50%'
+        evev.style.overflow='scroll';
+        var evevevs=document.getElementsByClassName('sppoint');
+        var i;
+        for (i=0;i<evevevs.length;i++){
+        evevevs[i].style.width='100%';
+        
+        }}
+        else{
+        evev.style.width='100%';
+         evev.style.overflow='scroll';
+        var evevevs=document.getElementsByClassName('sppoint');
+        var i;
+        for (i=0;i<evevevs.length;i++){
+        evevevs[i].style.width='50%';
+        }
+        }
+        }
+</script>
+<!--翻页控件-->
+<script>
+function currents(){
+        var evevs=document.getElementsByClassName('ppoint');
+        var i;
+        var current;
+        for(i=0;i<evevs.length;i++){
+        
+        if ( evevs[i].style.display=='block'){
+        current=i}
+        
+        }
+        return current
+        }
+        
+function fangye(n){
+        var evevs=document.getElementsByClassName('ppoint');
+        var current;
+        var needshow=0;
+        current=currents()
+        
+       
+        if (current+n==(-1)){needshow=evevs.length-1}
+        else if (current+n==evevs.length){needshow=0}
+        else(needshow=current+n);
+        for(i=0;i<evevs.length;i++){
+        evevs[i].style.display='none';}
+        
+        evevs[needshow].style.display='block';
+        }
+
+</script>
+<!--跳转-->
+<script>
+function tiaozhuan(n){
+var evevs=document.getElementsByClassName('ppoint');
+var i;
+for (i=0;i<evevs.length;i++){
+    evevs[i].style.display='none'}
+   
+evevs[n].style.display='block';
+}
+</script>
+<!--自动化脚注-->
+<script>
+function yemian(){
+         var evevs=document.getElementsByClassName('ppoint');
+         totals=evevs.length
+         for(i=0;i<evevs.length;i++){
+         var pres=i+1+'/'+totals
+         var is=i+1
+         var IDS='jiaozhu'+is
+         
+         document.getElementById(IDS).innerHTML=pres}}
+</script>
+<!--缩略菜单图--buing-->
+<script>
+function menutree(){
+         var menut1=document.getElementsByClassName('ppoint')[0].cloneNode(true);
+         menut1.style.position='static';
+         menut1.style.display='block';
+         menut1.getElementsByClassName('title1')[0].style.fontsize='1em';
+         menut1.getElementsByClassName('title2')[0].style.fontsize='1em';
+         menut1.getElementsByClassName('title3')[0].style.fontsize='1em';
+         var mtitle1
+         document.getElementById('menu').appendChild(menut1)}
+        
+</script>
+<body onload=yemian()>
+
+
+<div id='menu' style='width:0%'>
+
+<div class='sppoint'  ondblclick='tiaozhuan(0)'>
+<div class='stitle1'>11主标题</div>
+<div class='stitle2'>11次级标题</div>
+<div class='stitle3'>11三级标题</div>
+<div class='sjiaozhu' id='sjiaozhu1'>1</div>
+
+</div>
+<div class='sppoint'  ondblclick='tiaozhuan(1)'>
+<div class='stitle1'>主标题</div>
+<div class='stitle2'>次级标题</div>
+<div class='stitle3'>三级标题</div>
+<div class='sjiaozhu' id='sjiaozhu2'>2</div>
+</div>
+<div class='sppoint'  ondblclick='tiaozhuan(2)'>
+<div class='stitle1'>主标题</div>
+<div class='stitle2'>次级标题</div>
+<div class='stitle3'>三级标题</div>
+<div class='sjiaozhu' id='sjiaozhu3'>3</div>
+</div>
+<div class='sppoint'  ondblclick='tiaozhuan(3)'>
+<div class='stitle1'>主标题</div>
+<div class='stitle2'>次级标题</div>
+<div class='stitle3'>三级标题</div>
+<div class='sjiaozhu' id='sjiaozhu4'>4</div>
+</div>
+</div>
+
+
+
+<button id='fangda'  onclick="bbmenu()"  style='position:absolute;top:0%;color:white;z-index:3;cursor: pointer;transition: 0.6s ease;' >O</button>
+
+<div class='ppoint' style='display:block' >
+<div class='title1'>11主标题</div>
+<div class='title2'>11次级标题</div>
+<div class='title3'>11三级标题</div>
+<div class='jiaozhu' id='jiaozhu1'>1</div>
+
+</div>
+<div class='ppoint' style='display:none' >
+<div class='title1'>22主标题</div>
+<div class='title2'>22次级标题</div>
+<div class='title3'>22三级标题</div>
+<div class='jiaozhu' id='jiaozhu2'>2</div>
+</div>
+<div class='ppoint' style='display:none' >
+<div class='title1'>33主标题</div>
+<div class='title2'>33次级标题</div>
+<div class='title3'>33三级标题</div>
+<div class='jiaozhu' id='jiaozhu3'>3</div>
+</div>
+<div class='ppoint' style='display:none' >
+<div class='title1'>44主标题</div>
+<div class='title2'>44次级标题</div>
+<div class='title3'>44三级标题</div>
+<div class='jiaozhu' id='jiaozhu4'>4</div>
+</div>
+<a class="prev" onclick="fangye(-1)">《</a>
+<a class="next" onclick="fangye(1)" style='right:0%;left:auto'>》</a>
+</body>
+</html>
