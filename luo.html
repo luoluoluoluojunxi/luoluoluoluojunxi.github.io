@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+<meta charset="utf-8"> 
+    <!-- 引入 ECharts 文件 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts-en.common.js"></script>
+<title>PPT</title> 
+<style>
+* {
+    box-sizing: border-box;
+}
+.title1
+      {color:white; text-align:center;font-size:6em;}
+.title2
+       {color:white; text-align:center;font-size:4em;}
+.title3
+      {color:white;text-align:center;font-size:2em;}
+.title4
+      {color:white;text-align:left;font-size:1em;}
+.box{position:absolute;
+      top:25%;
+      bottom:5%;
+      left:8%;
+     right:8%;
+     color:white; text-align:left;font-size:3em;}
+.box1{position:absolute;
+      top:15%;
+      bottom:5%;
+      left:8%;
+     right:8%;
+     color:white; text-align:center;font-size:2em;}
+body {
+      background-color:#2F4F4F;
+      <!--background-image:url('https://luoluoluoluojunxi.github.io/index.jpg');*/-->
+      background-size:100%  auto;
+      background-repeat:no-repeat;
+      
+}
+
+#menu {
+      cursor: pointer;
+      background-color:black;
+      position:absolute;
+      top:0%;
+      bottom:0%;
+      width:0%;
+      display:block;
+      transition: 0.6s ease;
+      overflow:hidden;
+      }
+.ppoint {
+      background-color:#ffffff;
+      position:absolute;
+      top:0%;
+      bottom:0%;
+      width:100%;
+      display:none;
+      z-index:-1;
+     
+      }
+      
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+}
+.movep{
+      color:black;
+      position: absolute;
+      left:2.5%;
+      top: 0%;
+      width:1%;
+      height:1%;
+      background:black;
+      transition:width 2s;
+      -webkit-transition :width 2s;
+}
+.movet{
+     color:black;
+     position: absolute;
+     height:1%;
+     right:100%;
+     top:0.6%;
+     transition:right 2s;
+     -webkit-transition :right 2s;
+    }
+.moveh{
+     
+     transition:width 2s;
+     -webkit-transition :width 2s;
+    
+    }
+.moveh1{
+     color:black;
+     background-color:black;
+     position: absolute;
+     width:20%;
+     height:20%;
+     right:10%;
+     top:10%;
+     transition:height 2s;
+     -webkit-transition :height 2s;
+    
+    }
+</style>
+</head>
+<!--全局按键监听-->
+<script type="text/javascript" language="javascript">
+        document.onkeyup = function (event) {
+            var e = event || window.event;
+            var keyCode = e.keyCode || e.which;
+            switch (keyCode) {
+                case 32:
+                    var evev=document.getElementById('menu')
+                    if (evev.style.display=='none'){
+                    evev.style.display='block';
+                    break;}
+                    else{evev.style.display='none'}
+                    break;
+                case 37:
+                    fangye(-1);
+                    
+                    break;
+                case 39:
+                    fangye(1);
+                    break;
+                default:
+                    
+                    break;
+            }
+        }
+
+
+
+</script>
+<script>
+  
+	        var myChart1 = echarts.init(document.getElementById('main1'));
+        var myChart2 = echarts.init(document.getElementById('main2'));
+ 
+        var option = {
+            title: {
+                text: 'ECharts 入门示例'
+            },
+            tooltip: {
+            	trigger: 'axis'
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: false},
+                    magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            legend: {
+                data:['销量']
+            },
+            xAxis: {
+                data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+            },
+            yAxis: {},
+            series: [{
+                name: '销量',
+                type: 'line',
+                data: [5, 20, 36, 10, 10, 20]
+            }]
+        };
+ 
+        myChart1.setOption(option);
+        myChart2.setOption(option);
+        
+        // 控制联动的
+        myChart1.connect([myChart2]);
+        myChart2.connect([myChart1]);
+</script>
+<!--菜单放大-->
+<script>
+function bbmenu(){
+        var evev=document.getElementById('menu')
+        if (evev.style.width=='100%'){
+        evev.style.width='0%';
+        evev.style.overflow='hidden'}
+        else if (evev.style.width=='0%'){
+        evev.style.width='25%';    
+        evev.style.overflow='scroll';
+        var evevs=document.getElementById('menu').getElementsByClassName('ppoint');;
+        var i;
+        for (i=0;i<evevs.length;i++){
+        evevs[i].style.height='25%'; 
+        }
+        }
+        else if (evev.style.width=='25%'){
+        evev.style.width='50%';
+        evev.style.overflow='scroll';
+        var evevs=document.getElementById('menu').getElementsByClassName('ppoint');;
+        var i;
+        for (i=0;i<evevs.length;i++){
+        evevs[i].style.height='50%'; 
+        }
+        }
+        else if (evev.style.width=='50%'){
+        evev.style.width='100%'
+        evev.style.overflow='scroll';
+        var evevs=document.getElementById('menu').getElementsByClassName('ppoint');;
+        var i;
+        for (i=0;i<evevs.length;i++){
+        evevs[i].style.height='100%'; 
+        }
+        }
+        else{
+        evev.style.width='100%';
+        evev.style.overflow='scroll';
+        var evevs=document.getElementById('menu').getElementsByClassName('ppoint');;
+        var i;
+        for (i=0;i<evevs.length;i++){
+        evevs[i].style.height='100%'; 
+        }
+        }
+        }
+</script>
+<!--翻页控件-->
+<script>
+function currents(){
+        var evevs=document.getElementById('totalp').getElementsByClassName('ppoint');
+        var i;
+        var current;
+        for(i=0;i<evevs.length;i++){
+        
+        if ( evevs[i].style.display=='block'){
+        current=i}
+        
+        }
+        return current
+        }
+        
+function fangye(n){
+        var evevs=document.getElementById('totalp').getElementsByClassName('ppoint');
+        var current;
+        var needshow=0;
+        current=currents()
+        
+       
+        if (current+n==(-1)){needshow=evevs.length-1}
+        else if (current+n==evevs.length){needshow=0}
+        else(needshow=current+n);
+        for(i=0;i<evevs.length;i++){
+        evevs[i].style.display='none';}
+        
+        evevs[needshow].style.display='block';
+        number=(needshow+1)/evevs.length*100-2.5;
+        document.getElementsByClassName('movep')[0].style.width=number.toString()+'%';
+        document.getElementsByClassName('movet')[0].style.right=(100-number-2.5).toString()+'%';
+        document.getElementsByClassName('movet')[0].innerText=(number+2.5).toString()+'%';
+        }
+
+</script>
+<script>
+        
+function showc(){
+        var evevs=document.getElementById('totalp').getElementsByClassName('ppoint');
+        var current;
+        current=currents()
+        try {
+        for(i=0;i<evevs.length;i++){ 
+        evevs[current].getElementsByClassName('moveh')[i].style.width='0%';
+        evevs[current].getElementsByClassName('moveh')[i].innerText=''} }
+        catch(err)
+          {}
+}
+           
+    </script>
+<script>
+        
+function showc1(){
+        var evevs=document.getElementById('totalp').getElementsByClassName('ppoint');
+        var current;
+        current=currents()
+        try {
+        for(i=0;i<evevs.length;i++){ 
+        evevs[current].getEleme/*
+sublime-imfix.c
+Use LD_PRELOAD to interpose some function to fix sublime input method support for linux.
+By Cjacker Huang
+
+gcc -shared -o libsublime-imfix.so sublime-imfix.c `pkg-config --libs --cflags gtk+-2.0` -fPIC
+LD_PRELOAD=./libsublime-imfix.so subl
+*/
+#include <gtk/gtk.h>
+#include <gdk/gdkx.h>
+typedef GdkSegment GdkRegionBox;
+
+struct _GdkRegion
+{
+  long size;
+  long numRects;
+  GdkRegionBox *rects;
+  GdkRegionBox extents;
+};
+
+GtkIMContext *local_context;
+
+void
+gdk_region_get_clipbox (const GdkRegion *region,
+            GdkRectangle    *rectangle)
+{
+  g_return_if_fail (region != NULL);
+  g_return_if_fail (rectangle != NULL);
+
+  rectangle->x = region->extents.x1;
+  rectangle->y = region->extents.y1;
+  rectangle->width = region->extents.x2 - region->extents.x1;
+  rectangle->height = region->extents.y2 - region->extents.y1;
+  GdkRectangle rect;
+  rect.x = rectangle->x;
+  rect.y = rectangle->y;
+  rect.width = 0;
+  rect.height = rectangle->height;
+  //The caret width is 2;
+  //Maybe sometimes we will make a mistake, but for most of the time, it should be the caret.
+  if(rectangle->width == 2 && GTK_IS_IM_CONTEXT(local_context)) {
+        gtk_im_context_set_cursor_location(local_context, rectangle);
+  }
+}
+
+//this is needed, for example, if you input something in file dialog and return back the edit area
+//context will lost, so here we set it again.
+
+static GdkFilterReturn event_filter (GdkXEvent *xevent, GdkEvent *event, gpointer im_context)
+{
+    XEvent *xev = (XEvent *)xevent;
+    if(xev->type == KeyRelease && GTK_IS_IM_CONTEXT(im_context)) {
+       GdkWindow * win = g_object_get_data(G_OBJECT(im_context),"window");
+       if(GDK_IS_WINDOW(win))
+         gtk_im_context_set_client_window(im_context, win);
+    }
+    return GDK_FILTER_CONTINUE;
+}
+
+void gtk_im_context_set_client_window (GtkIMContext *context,
+          GdkWindow    *window)
+{
+  GtkIMContextClass *klass;
+  g_return_if_fail (GTK_IS_IM_CONTEXT (context));
+  klass = GTK_IM_CONTEXT_GET_CLASS (context);
+  if (klass->set_client_window)
+    klass->set_client_window (context, window);
+
+  if(!GDK_IS_WINDOW (window))
+    return;
+  g_object_set_data(G_OBJECT(context),"window",window);
+  int width = gdk_window_get_width(window);
+  int height = gdk_window_get_height(window);
+  if(width != 0 && height !=0) {
+    gtk_im_context_focus_in(context);
+    local_context = context;
+  }
+  gdk_window_add_filter (window, event_filter, context);
+}
+￼
+ntsByClassName('moveh1')[i].style.height='0%';
+        evevs[current].getElementsByClassName('moveh1')[i].innerText=''} }
+        catch(err)
+          {}
+}
+           
+    </script>
+<!--跳转-->
+<script>
+function tiaozhuan(n){
+var evevs=document.getElementById('totalp').getElementsByClassName('ppoint');;
+var i;
+for (i=0;i<evevs.length;i++){
+    evevs[i].style.display='none'}
+    evevs[n].style.display='block';
+    number=(n+1)/evevs.length*100-2.5;
+    document.getElementsByClassName('movep')[0].style.width=number.toString()+'%';
+    document.getElementsByClassName('movet')[0].style.right=(100-number-2.5).toString()+'%';
+    document.getElementsByClassName('movet')[0].innerText=(number+2.5).toString()+'%';
+      
+}
+</script>
+<!--自动化脚注-->
+<script>
+function yemian(){
+         menutree()
+         var evevs=document.getElementById('totalp').getElementsByClassName('ppoint');
+         totals=evevs.length
+         for(i=0;i<evevs.length;i++){
+         var pres=i+1+'/'+totals
+         var is=i+1
+         var IDS='jiaozhu'+is
+         
+         
+         document.getElementById(IDS).innerHTML=pres}}
+         
+</script>
+
+<!--缩略菜单图--buing-->
+<script>
+function menutree(){
+         fangye(1);
+         
+	     var evevs = document.getElementById('totalp').getElementsByClassName('ppoint');
+         var totals = evevs.length;
+         for(i=0;i<totals;i++){
+         
+         var menut1=document.getElementById('totalp').getElementsByClassName('ppoint')[i].cloneNode(true);
+         menut1.style.position='static';
+         menut1.style.display='block';
+         menut1.style.height='25%';
+         menut1.style.width='100%';
+         
+         document.getElementById('menu').appendChild(menut1);
+         }
+         dealmenu();
+}
+        
+</script>
+<script>
+function dealmenu(){
+         
+	     var evevs = document.getElementById('menu').getElementsByClassName('ppoint');
+         var totals = evevs.length;
+         for(i=0;i<totals;i++){
+         var total1 =document.getElementById('menu').getElementsByClassName('ppoint')[i].getElementsByClassName('moveh').length;
+         for (j=0;j<total1;j++){
+         document.getElementById('menu').getElementsByClassName('ppoint')[i].getElementsByClassName('moveh')[j].style.width='0%';
+         document.getElementById('menu').getElementsByClassName('ppoint')[i].getElementsByClassName('moveh')[j].innerText='';
+         }
+         }
+         for(i=0;i<totals;i++){
+         var total1 =document.getElementById('menu').getElementsByClassName('ppoint')[i].getElementsByClassName('moveh1').length;
+         for (j=0;j<total1;j++){
+         document.getElementById('menu').getElementsByClassName('ppoint')[i].getElementsByClassName('moveh1')[j].style.width='0%';
+             document.getElementById('menu').getElementsByClassName('ppoint')[i].getElementsByClassName('moveh1')[j].innerText='';
+         }
+         }
+}
+    </script>
+<body onload = menutree() >
+
+
+<div id='menu' style='width:0%'>
+
+</div>
+
+<div id='totalp'>
+
+<button id='fangda'  onclick="bbmenu()"  style='position:absolute;left:0.11%;top:0%;color:black;z-index:3;cursor: pointer;transition: 0.6s ease;font-size:1.5em;border-radius: 50%;background-color:black;border: 0px solid grey; ' >llll</button>
+<div class='movet'></div>
+<div class='movep' >-</div>
+<!--一页ppt--begin-----------------注意这里-|-----------------------------------注意这里-|-->
+<div class='ppoint' ondblclick='tiaozhuan(0)' style='display:block;background:url(img/0.jpg); background-repeat:no-repeat;background-size:100% 100%;' > 
+<div class='title1'> 摘要  </div>
+    <div class ='box'> 本文通过对饿了么评论数据进行分析研究。采用统计方法，以Python为工具，结合业务知识，将大学生奶茶购买划分为产品搭配、消费者购买产品价格、消费者购买、重复购买动机四大方面进行研究。 最终为商家针对消费者购买行为进行针对性的改进</div>
+</div>
+<!--一页ppt--end-->
+    
+<!--一页ppt--begin-----------------注意这里-|-----------------------------------注意这里-|-->
+<div class='ppoint' ondblclick='tiaozhuan(1)' style='display:block;background:url(img/1.jpg); background-repeat:no-repeat;background-size:100% 100%;' ><br>
+    <div class='title2'>研究背景及意义</div>
+    <div class='box1'>
+        <div class='title4'><p>在线外卖普遍化、外卖竞争激烈</p></div>
+  
+        <div ><img class='moveh' onclick=showc() style="background-size:contain|cover;width:100%;height: auto"; src='img/sales.jpg'></div>
+       
+       <div ><img  style="background-size:contain|cover;width:100%;height: auto"; src='img/sales1.jpg'></div>
+    </div>
+</div>
+<!--一页ppt--end-->
+    
+<!--一页ppt--begin-----------------注意这里-|-----------------------------------注意这里-|-->
+<div class='ppoint' ondblclick='tiaozhuan(2)' style='display:block;background:url(img/2.jpg); background-repeat:no-repeat;background-size:100% 100%;' ><br>
+ <div class='title2'>研究背景及意义</div>
+    <div class='box1'>
+        <div class='title3' style='text-align:left;'><p>奶茶价格弹性高、非刚性需求</p></div>
+        <div class='title3'  style='text-align:left;'><p>对于商家来说意味着有更多的调整空间</p></div>
+        <div class='title3'  style='text-align:left;'><p>帮助商家更好的了解消费者</p></div>
+  
+       
+    </div>
+</div>
+<!--一页ppt--end-->    
+<!--一页ppt--begin-----------------注意这里-|-----------------------------------注意这里-|-->
+<div class='ppoint' ondblclick='tiaozhuan(3)' style='display:block;background:url(img/2.jpg); background-repeat:no-repeat;background-size:100% 100%;' ><br>
+ <div class='title2'>理论</div>
+    <div class='box1'>
+        <div class='title3' style='text-align:left;'>销售额 = 客单价 x 客流量</div>
+        <div class='title4' style='text-align:left;'>= （客单品数 x 单品均价）x （新客户 + 回头客）</div><br>
+      <div class='title4' style='text-align:left;'>为了提高销售额，商家应该根据消费者的购买习惯、价格偏好、以及购买动机进行研究。结合奶茶外卖的特征，归纳出相关因素如下：消费者购买的主食（即奶茶、小吃）的件数、消费者购买配料（如奶盖、布丁）的数量、消费者购买的可能动机（价格、好评、销售等）、消费者重复购买的原因（价格、好评、店家、产品等）。</div>
+       
+    </div>
+</div>
+<!--一页ppt--end-->    
+    
+<!--一页ppt--begin-----------------注意这里-|-----------------------------------注意这里-|-->
+<div class='ppoint' ondblclick='tiaozhuan(4)' style='display:block;background:url(img/2.jpg); background-repeat:no-repeat;background-size:100% 100%;' ><br>
+ <div class='title2'>理论</div>
+    <div class='box1'>
+        <div class='title3' style='text-align:left;'>根据以上理论可以归纳为：</div><br>
+        <div class='title3' >产品搭配问题、价格问题、</div>
+        <div class='title3' >消费者购买问题、重复购买问题</div>
+        
+       
+    </div>
+</div>
+<!--一页ppt--end-->   
+    <!--一页ppt--begin-----------------注意这里-|-----------------------------------注意这里-|-->
+<div class='ppoint' ondblclick='tiaozhuan(5)' style='display:block;background:url(img/1.jpg); background-repeat:no-repeat;background-size:100% 100%;' ><br>
+    <div class='title2'>数据来源</div>
+    <div class='box1'>
+        <div class='title4' style='text-align:left;'><p>本文所使用数据采用python编程语言编写爬虫器，对饿了么平台商家、评论、菜单三方面数据进行爬取。获得的数据为json格式，本文通过Python进行数据处理，去重，汇总成表。并通过分组，合并的方式整合出适合本文分析的矩阵表。</p></div>
+        <div class='title3' style='text-align:left;'>商家数据<img class='moveh' onclick=showc() style="background-size:contain|cover;width:100%;height: auto"; src='img/ele1.jpg'></div>
+        <div class='title3' style='text-align:left;'> 菜单数据<img class='moveh' onclick=showc() style="background-size:contain|cover;width:100%;height: auto"; src='img/ele2.jpg'></div>
+        <div class='title3' style='text-align:left;'>评论数据<img class='moveh' onclick=showc() style="background-size:contain|cover;width:100%;height: auto"; src='img/ele3.jpg'></div>
+   
+        
+    </div>
+</div>
+<!--一页ppt--end-->
+   <!--一页ppt--begin-----------------注意这里-|-----------------------------------注意这里-|-->
+<div class='ppoint' ondblclick='tiaozhuan(5)' style='display:block;background:url(img/1.jpg); background-repeat:no-repeat;background-size:100% 100%;' >
+    <div class='title2'>数据来源</div>
+    <div class='box1'>
+        <div class='title4'><p>本文所使用数据采用python编程语言编写爬虫器，对饿了么平台商家、评论、菜单三方面数据进行爬取。获得的数据为json格式，本文通过Python进行数据处理，去重，汇总成表。并通过分组，合并的方式整合出适合本文分析的矩阵表。</p></div>
+  
+        <div ><img class='moveh' onclick=showc() style="background-size:contain|cover;width:100%;height: auto"; src='img/sales.jpg'></div>
+       
+       <div ><img  style="background-size:contain|cover;width:100%;height: auto"; src='img/sales1.jpg'></div>
+    </div>
+</div>
+<!--一页ppt--end-->
+
+<!--一页ppt--begin-----------------注意这里-|-----------------------------------注意这里-|
+    <div class='ppoint' ondblclick='tiaozhuan(3)' style='display:block;background:url(img/0.jpg); background-repeat:no-repeat;background-size:100% 100%;' >
+<div class='moveh' onclick='showc()' style='width:20%;height:20%;right:10%;top:10%;'>a</div>
+<div class='moveh' onclick='showc()' style='width:20%;height:20%;right:10%;top:10%;'>a</div>
+<!--这个特效是从左边出来--点击生效
+<div class='moveh' onclick='showc()' style='width:20%;height:20%;right:10%;top:10%;'>a</div>
+<!--这个特效是从右边出来
+<div class='moveh' onclick='showc()' style='width:20%;height:20%;left:10%;top:10%;'>a</div>
+<!--这个特效是从下边出来
+<div class='moveh1' onclick='showc1()' style='width:20%;height:20%;right:30%;top:10%;'>a</div>
+<div class='moveh' onclick='showc()' style='width:20%;height:20%;right:10%;top:10%;'>a</div>
+</div>
+<!--一页ppt--end-->    
+
+<a class="prev" onclick="fangye(-1)">《</a>
+<a class="next" onclick="fangye(1)" style='right:0%;left:auto'>》</a>
+</div>
+</body>
+</html>
